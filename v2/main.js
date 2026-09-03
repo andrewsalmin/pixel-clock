@@ -23,19 +23,20 @@ function drawClock() {
   let minutes = now.getMinutes();
   let seconds = now.getSeconds();
   let milliseconds = now.getMilliseconds();
+  let colors = getThemeColors();
 
   // draw background
-  ctx.fillStyle = "#000000";
+  ctx.fillStyle = colors.bg;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   // draw circle
-  drawCircle(seconds);
+  drawCircle(seconds, colors);
 
   // draw numbers
-  drawNumbers(hours, minutes, milliseconds);
+  drawNumbers(hours, minutes, milliseconds, colors);
 }
 
-function drawCircle(seconds) {
+function drawCircle(seconds, colors) {
   // move to starting point
   let x0 = canvas.width / 2;
   let y0 = canvas.height / 2;
@@ -51,7 +52,7 @@ function drawCircle(seconds) {
   ctx.rotate(-angDuration / 2); // (angDuration/2) degrees anticlockwise
 
   // choose color
-  ctx.fillStyle = "#FFFF00";
+  ctx.fillStyle = colors.seconds;
 
   // draw seconds
   for (let i = 0; i <= seconds; i++) {
@@ -77,14 +78,12 @@ function drawCircle(seconds) {
   ctx.translate(-x0, -y0);
 }
 
-function drawNumbers(hours, minutes, milliseconds) {
+function drawNumbers(hours, minutes, milliseconds, colors) {
   // calculate hours
-  let hours_10 = parseInt(hours / 10);
-  let hours_1 = hours % 10;
+  let [hours_10, hours_1] = splitTensOnes(hours);
 
   // calculate minutes
-  let minutes_10 = parseInt(minutes / 10);
-  let minutes_1 = minutes % 10;
+  let [minutes_10, minutes_1] = splitTensOnes(minutes);
 
   // define dimensions
   let side = Math.round(0.04 * canvas.width);
@@ -96,14 +95,14 @@ function drawNumbers(hours, minutes, milliseconds) {
   ctx.translate(x0, y0);
 
   // choose color
-  ctx.fillStyle = "#00FF00";
+  ctx.fillStyle = colors.digit;
 
   // draw hours tens
-  drawNumber(hours_10, side, gap);
+  drawDigit(ctx, hours_10, side, gap);
   ctx.translate(4 * (side + gap), 0);
 
   // draw hours ones
-  drawNumber(hours_1, side, gap);
+  drawDigit(ctx, hours_1, side, gap);
   ctx.translate(4 * (side + gap), 0);
 
   // draw dots
@@ -115,11 +114,11 @@ function drawNumbers(hours, minutes, milliseconds) {
   ctx.translate(2 * (side + gap), 0);
 
   // draw minutes tens
-  drawNumber(minutes_10, side, gap);
+  drawDigit(ctx, minutes_10, side, gap);
   ctx.translate(4 * (side + gap), 0);
 
   // draw minutes ones
-  drawNumber(minutes_1, side, gap);
+  drawDigit(ctx, minutes_1, side, gap);
 
   // return to starting point
   ctx.translate(-14 * (side + gap), 0);
@@ -128,153 +127,4 @@ function drawNumbers(hours, minutes, milliseconds) {
   ctx.translate(-x0, -y0);
 }
 
-function drawNumber(number, side, gap) {
-  // 0
-  if (number == 0) {
-    for (let i = 0; i <= 4; i++) {
-      ctx.fillRect(0, i * (side + gap), side, side);
-    }
-    for (let i = 0; i <= 4; i += 2) {
-      if (i == 2) {
-        continue;
-      }
-      ctx.fillRect(side + gap, i * (side + gap), side, side);
-    }
-    for (let i = 0; i <= 4; i++) {
-      ctx.fillRect(2 * (side + gap), i * (side + gap), side, side);
-    }
-  }
-
-  // 1
-  if (number == 1) {
-    for (let i = 0; i <= 4; i++) {
-      ctx.fillRect(2 * (side + gap), i * (side + gap), side, side);
-    }
-  }
-
-  // 2
-  if (number == 2) {
-    for (let i = 0; i <= 4; i++) {
-      if (i == 1) {
-        continue;
-      }
-      ctx.fillRect(0, i * (side + gap), side, side);
-    }
-    for (let i = 0; i <= 4; i += 2) {
-      ctx.fillRect(side + gap, i * (side + gap), side, side);
-    }
-    for (let i = 0; i <= 4; i++) {
-      if (i == 3) {
-        continue;
-      }
-      ctx.fillRect(2 * (side + gap), i * (side + gap), side, side);
-    }
-  }
-
-  // 3
-  if (number == 3) {
-    for (let i = 0; i <= 4; i++) {
-      if (i == 1 || i == 3) {
-        continue;
-      }
-      ctx.fillRect(0, i * (side + gap), side, side);
-    }
-    for (let i = 0; i <= 4; i += 2) {
-      ctx.fillRect(side + gap, i * (side + gap), side, side);
-    }
-    for (let i = 0; i <= 4; i++) {
-      ctx.fillRect(2 * (side + gap), i * (side + gap), side, side);
-    }
-  }
-
-  // 4
-  if (number == 4) {
-    for (let i = 0; i <= 4; i++) {
-      if (i == 3 || i == 4) {
-        continue;
-      }
-      ctx.fillRect(0, i * (side + gap), side, side);
-    }
-    ctx.fillRect(side + gap, 2 * (side + gap), side, side);
-    for (let i = 0; i <= 4; i++) {
-      ctx.fillRect(2 * (side + gap), i * (side + gap), side, side);
-    }
-  }
-
-  // 5
-  if (number == 5) {
-    for (let i = 0; i <= 4; i++) {
-      if (i == 3) {
-        continue;
-      }
-      ctx.fillRect(0, i * (side + gap), side, side);
-    }
-    for (let i = 0; i <= 4; i += 2) {
-      ctx.fillRect(side + gap, i * (side + gap), side, side);
-    }
-    for (let i = 0; i <= 4; i++) {
-      if (i == 1) {
-        continue;
-      }
-      ctx.fillRect(2 * (side + gap), i * (side + gap), side, side);
-    }
-  }
-
-  // 6
-  if (number == 6) {
-    for (let i = 0; i <= 4; i++) {
-      ctx.fillRect(0, i * (side + gap), side, side);
-    }
-    for (let i = 0; i <= 4; i += 2) {
-      ctx.fillRect(side + gap, i * (side + gap), side, side);
-    }
-    for (let i = 0; i <= 4; i++) {
-      if (i == 1) {
-        continue;
-      }
-      ctx.fillRect(2 * (side + gap), i * (side + gap), side, side);
-    }
-  }
-
-  // 7
-  if (number == 7) {
-    ctx.fillRect(0, 0, side, side);
-    ctx.fillRect(side + gap, 0, side, side);
-    for (let i = 0; i <= 4; i++) {
-      ctx.fillRect(2 * (side + gap), i * (side + gap), side, side);
-    }
-  }
-
-  // 8
-  if (number == 8) {
-    for (let i = 0; i <= 4; i++) {
-      ctx.fillRect(0, i * (side + gap), side, side);
-    }
-    for (let i = 0; i <= 4; i += 2) {
-      ctx.fillRect(side + gap, i * (side + gap), side, side);
-    }
-    for (let i = 0; i <= 4; i++) {
-      ctx.fillRect(2 * (side + gap), i * (side + gap), side, side);
-    }
-  }
-
-  // 9
-  if (number == 9) {
-    for (let i = 0; i <= 4; i++) {
-      if (i == 3) {
-        continue;
-      }
-      ctx.fillRect(0, i * (side + gap), side, side);
-    }
-    for (let i = 0; i <= 4; i += 2) {
-      ctx.fillRect(side + gap, i * (side + gap), side, side);
-    }
-    for (let i = 0; i <= 4; i++) {
-      ctx.fillRect(2 * (side + gap), i * (side + gap), side, side);
-    }
-  }
-}
-
-window.onresize = function () {
-  calculateCanvas();
-};
+window.addEventListener("resize", calculateCanvas);

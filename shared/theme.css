@@ -1,0 +1,36 @@
+:root {
+    --bg-color: #000000;
+    --digit-color: #00ff00;
+    --seconds-color: #ffff00;
+}
+
+:root[data-theme="amber"] {
+    --bg-color: #000000;
+    --digit-color: #ffb000;
+    --seconds-color: #ff6a00;
+}
+
+:root[data-theme="blue"] {
+    --bg-color: #000000;
+    --digit-color: #00cfff;
+    --seconds-color: #ffffff;
+}
+
+.theme-toggle {
+    position: fixed;
+    right: 12px;
+    bottom: 12px;
+    padding: 4px 10px;
+    background: transparent;
+    border: 1px solid var(--digit-color);
+    border-radius: 3px;
+    color: var(--digit-color);
+    font-family: monospace;
+    font-size: 12px;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.theme-toggle:hover {
+    opacity: 1;
+}
