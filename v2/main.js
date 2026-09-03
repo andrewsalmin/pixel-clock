@@ -23,7 +23,7 @@ function drawClock() {
   let minutes = now.getMinutes();
   let seconds = now.getSeconds();
   let milliseconds = now.getMilliseconds();
-  let colors = PixelClock.getThemeColors();
+  let colors = getThemeColors();
 
   // draw background
   ctx.fillStyle = colors.bg;
@@ -80,10 +80,10 @@ function drawCircle(seconds, colors) {
 
 function drawNumbers(hours, minutes, milliseconds, colors) {
   // calculate hours
-  let [hours_10, hours_1] = PixelClock.splitTensOnes(hours);
+  let [hours_10, hours_1] = splitTensOnes(hours);
 
   // calculate minutes
-  let [minutes_10, minutes_1] = PixelClock.splitTensOnes(minutes);
+  let [minutes_10, minutes_1] = splitTensOnes(minutes);
 
   // define dimensions
   let side = Math.round(0.04 * canvas.width);
@@ -98,11 +98,11 @@ function drawNumbers(hours, minutes, milliseconds, colors) {
   ctx.fillStyle = colors.digit;
 
   // draw hours tens
-  PixelClock.drawDigit(ctx, hours_10, side, gap);
+  drawDigit(ctx, hours_10, side, gap);
   ctx.translate(4 * (side + gap), 0);
 
   // draw hours ones
-  PixelClock.drawDigit(ctx, hours_1, side, gap);
+  drawDigit(ctx, hours_1, side, gap);
   ctx.translate(4 * (side + gap), 0);
 
   // draw dots
@@ -114,11 +114,11 @@ function drawNumbers(hours, minutes, milliseconds, colors) {
   ctx.translate(2 * (side + gap), 0);
 
   // draw minutes tens
-  PixelClock.drawDigit(ctx, minutes_10, side, gap);
+  drawDigit(ctx, minutes_10, side, gap);
   ctx.translate(4 * (side + gap), 0);
 
   // draw minutes ones
-  PixelClock.drawDigit(ctx, minutes_1, side, gap);
+  drawDigit(ctx, minutes_1, side, gap);
 
   // return to starting point
   ctx.translate(-14 * (side + gap), 0);
