@@ -26,7 +26,7 @@ function drawClock() {
   let minutes = now.getMinutes();
   let seconds = now.getSeconds();
   let milliseconds = now.getMilliseconds();
-  let colors = getThemeColors();
+  let colors = PixelClock.getThemeColors();
 
   // draw background
   ctx.fillStyle = colors.bg;
@@ -38,23 +38,23 @@ function drawClock() {
 
 function drawNumbers(hours, minutes, seconds, milliseconds, colors) {
   // calculate hours
-  let [hours_10, hours_1] = splitTensOnes(hours);
+  let [hours_10, hours_1] = PixelClock.splitTensOnes(hours);
 
   // calculate minutes
-  let [minutes_10, minutes_1] = splitTensOnes(minutes);
+  let [minutes_10, minutes_1] = PixelClock.splitTensOnes(minutes);
 
   // calculate seconds
-  let [seconds_10, seconds_1] = splitTensOnes(seconds);
+  let [seconds_10, seconds_1] = PixelClock.splitTensOnes(seconds);
 
   // choose color
   ctx.fillStyle = colors.digit;
 
   // draw hours tens
-  drawDigit(ctx, hours_10, sideLarge, gap);
+  PixelClock.drawDigit(ctx, hours_10, sideLarge, gap);
   ctx.translate(4 * (sideLarge + gap), 0);
 
   // draw hours ones
-  drawDigit(ctx, hours_1, sideLarge, gap);
+  PixelClock.drawDigit(ctx, hours_1, sideLarge, gap);
   ctx.translate(4 * (sideLarge + gap), 0);
 
   // draw dots
@@ -66,20 +66,20 @@ function drawNumbers(hours, minutes, seconds, milliseconds, colors) {
   ctx.translate(2 * (sideLarge + gap), 0);
 
   // draw minutes tens
-  drawDigit(ctx, minutes_10, sideLarge, gap);
+  PixelClock.drawDigit(ctx, minutes_10, sideLarge, gap);
   ctx.translate(4 * (sideLarge + gap), 0);
 
   // draw minutes ones
-  drawDigit(ctx, minutes_1, sideLarge, gap);
+  PixelClock.drawDigit(ctx, minutes_1, sideLarge, gap);
   ctx.translate(5 * (sideLarge + gap), 5 * (sideLarge - sideSmall));
 
   // draw seconds tens
   ctx.fillStyle = colors.seconds;
-  drawDigit(ctx, seconds_10, sideSmall, gap);
+  PixelClock.drawDigit(ctx, seconds_10, sideSmall, gap);
   ctx.translate(4 * (sideSmall + gap), 0);
 
   // draw seconds ones
-  drawDigit(ctx, seconds_1, sideSmall, gap);
+  PixelClock.drawDigit(ctx, seconds_1, sideSmall, gap);
 
   // return to starting point
   ctx.translate(

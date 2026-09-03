@@ -2,13 +2,18 @@
 > **Неоновые часы на чистом JavaScript**<br>
 > Для ценителей пикселей, ванильного JS и ретро-вибраций ⚡
 
+## 🌐 Демо
+Часы развёрнуты онлайн через GitHub Pages:
+- 🟩 **[v1 — смотреть онлайн](https://andrewsalmin.github.io/pixel-clock/v1/)**
+- 🟡 **[v2 — смотреть онлайн](https://andrewsalmin.github.io/pixel-clock/v2/)**
+
 ## 🕹️ Версии проекта
 В репозитории есть **две реализации часов**, каждая в своей папке:
 
 | Версия | Описание | Скриншот |
 |:------:|:---------|:---------|
-| **[v1](./v1)** | Классические цифровые часы в духе «киберпанк-терминала» 😎 | <a href="./v1/screenshot.png" target="_blank"><img src="./v1/screenshot.png" alt="v1 preview" width="400"></a> |
-| **[v2](./v2)** | Аналого-цифровой гибрид: часы в центре и сегменты-секунды по окружности 🕒 | <a href="./v2/screenshot.png" target="_blank"><img src="./v2/screenshot.png" alt="v2 preview" width="400"></a> |
+| **[v1](./v1)** ([демо](https://andrewsalmin.github.io/pixel-clock/v1/)) | Классические цифровые часы в духе «киберпанк-терминала» 😎 | <a href="./v1/screenshot.png" target="_blank"><img src="./v1/screenshot.png" alt="v1 preview" width="400"></a> |
+| **[v2](./v2)** ([демо](https://andrewsalmin.github.io/pixel-clock/v2/)) | Аналого-цифровой гибрид: часы в центре и сегменты-секунды по окружности 🕒 | <a href="./v2/screenshot.png" target="_blank"><img src="./v2/screenshot.png" alt="v2 preview" width="400"></a> |
 
 ## 🌟 Особенности
 - 🧠 Чистый JavaScript
